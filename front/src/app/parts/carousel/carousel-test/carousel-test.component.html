@@ -1,0 +1,11 @@
+<ul class="carousel">
+        <li class="slides" *ngFor="let slide of imgSlides; let i = index;" >
+            <!-- <img [src]="slide.img" alt="slide image" class="slide" *ngIf="i==currentSlide">  -->
+            <img [src]="slide.img" alt="slide image" class="slide"> 
+            <div>{{i}}</div>
+        </li>
+        <div class="controls">
+            <div (click)="moveLeft(i)" class="control prev-slide">&#9668;</div>
+            <div (click)="moveRight()" class="control next-slide">&#9658;</div>
+        </div>
+    </ul>
