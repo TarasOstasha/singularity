@@ -1,0 +1,22 @@
+<app-header></app-header>
+<div class="auth-block" [ngSwitch]="appState.state_form">
+    <!-- SIGN IN -->
+    <form class="box" *ngSwitchCase=" 'login' ">
+        <h1>Sign in</h1>
+        <input type="text" placeholder="Email" [(ngModel)]="email" name="email">
+        <input type="password" placeholder="Password" [(ngModel)]="password" name="password">
+        <button (click)="singIn()">Sign In</button>
+        <button (click)="appState.state_form = 'register' ">Create Account</button>
+    </form>
+
+    <!-- SIGN UP -->
+    <form class="box" *ngSwitchCase=" 'register' ">
+        <h1>Sign up</h1>
+        <input type="text" placeholder="Username" [(ngModel)]="username" name="username">
+        <input type="text" placeholder="Email" [(ngModel)]="email" name="email">
+        <input type="password" placeholder="Password" [(ngModel)]="password" name="password">
+        <button (click)="signUp()">Create Account</button>
+        <button (click)="appState.state_form = 'login' ">Back to Sign In</button>
+    </form>
+</div>
+<app-footer></app-footer>

@@ -32,6 +32,8 @@ export class CarouselComponent implements OnInit {
   currentSlide = 0;
   startSlider;
   endSlider;
+  public carousel: any = document.querySelector('.carousel');
+  public moveSlide: any = 0;
 
   ngOnInit() {
     const delay = 5000; //ms
@@ -44,6 +46,10 @@ export class CarouselComponent implements OnInit {
 
   }
 
+  sliderWidth() {
+    return this.carousel.offsetWidth;
+  }
+
   moveLeft() {
     if (this.currentSlide == 0) this.currentSlide = this.endSlider
     else this.currentSlide--;
@@ -51,6 +57,7 @@ export class CarouselComponent implements OnInit {
   moveRight() {
     if (this.currentSlide == this.endSlider) { //тут оприділяю що в нас наш каунтер дійшов до кінця масиву
       this.currentSlide = 0; // обнуляю каунтер 
+
     } else this.currentSlide++;  // тут каунтер збільшую 
   }
 

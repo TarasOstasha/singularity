@@ -6,9 +6,10 @@ const appState = {
     header: {
       isLogged: false,
       user: {
-        name: '',
+        userName: '',
         _id: 'unlogged',
-        role: 'user'
+        role: 'user',
+        isLogged: false
       },
       basket: {
         open: false
@@ -17,12 +18,6 @@ const appState = {
     //pages
     pages: {
       admin: {
-        header: {
-          isLogged: false,
-          user: {
-            name: ''
-          }
-        },
         products: [],
         users: [],
         newProduct: {
@@ -34,7 +29,7 @@ const appState = {
     },
   
     // for auth component
-    checked_form: 'login',
+    state_form: 'login',
     error: {
       dublicate_user: false
     }

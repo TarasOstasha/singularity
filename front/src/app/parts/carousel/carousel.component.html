@@ -5,7 +5,7 @@
         </div>
     </div>
     <li class="slides" *ngFor="let slide of imgSlides;let i = index;">
-        <img [src]="slide.img" alt="slide image" class="slide" *ngIf="i==currentSlide" [@slideInOut1]> 
+        <img [src]="slide.img" alt="slide image" class="slide" *ngIf="i==currentSlide" [@slideInOut1] [style.left]="moveSlide"> 
     </li>
     <div class="controls">
         <div (click)="moveLeft()" class="control prev-slide">&#9668;</div>

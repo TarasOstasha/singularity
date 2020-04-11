@@ -1,4 +1,4 @@
-<div class="header">    
+<div class="header">
     <div class="container">
         <div class="header-wrapper">
             <div class="logo-block">
@@ -36,6 +36,19 @@
                     </div>
                     <label class="nav__btn" for="menu-cb"></label>
                 </nav>
+            </div>
+            <div class="auth-block">
+                <div class="sign-in" (click)="toLogin()" *ngIf="!appState.header.user.isLogged">
+                    Login
+                    <i class="fa fa-sign-in"></i>
+                </div>
+                <div (click)="logOut()" class="sign-out" *ngIf="appState.header.user.isLogged">
+                    LogOut
+                    <i class="fa fa-sign-out"></i>
+                </div>
+                <div class="sign-out" *ngIf="appState.header.user.isLogged">
+                    {{ appState.header.user.userName }}
+                </div>
             </div>
         </div>
     </div>
