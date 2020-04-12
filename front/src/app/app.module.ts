@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -24,7 +24,8 @@ import { CardComponent } from './parts/card/card.component';
 import { ApiService } from './services/api.service';
 import { AuthComponent } from './pages/auth/auth.component';
 import { RedirectorComponent } from './pages/redirector/redirector.component';
-import { ProductComponent } from './pages/product/product.component'
+import { ProductComponent } from './pages/product/product.component';
+import { FormValidatorComponent } from './parts/form-validator/form-validator.component'
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { ProductComponent } from './pages/product/product.component'
     CardComponent,
     AuthComponent,
     RedirectorComponent,
-    ProductComponent
+    ProductComponent,
+    FormValidatorComponent
   ],
   imports: [
     BrowserModule,
@@ -45,7 +47,8 @@ import { ProductComponent } from './pages/product/product.component'
     BrowserAnimationsModule,
     MatSliderModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [ApiService],
   bootstrap: [AppComponent]

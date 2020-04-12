@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef  } from '@angular/core';
 import { Router } from '@angular/router';
 import appState from '../../app-state';
 import { ApiService } from '../../services/api.service';
+import { StorageService } from '../../services/storage.service';
 
 
 @Component({
@@ -19,10 +20,12 @@ export class HeaderComponent implements OnInit {
  
   
   appState = appState;  
-
+  userStorage: any;
+  
   constructor(  
     private router: Router,
-    private api: ApiService 
+    private api: ApiService,
+    private storage: StorageService
   ) { }
   
 
@@ -31,15 +34,16 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit() {
-  
+    appState.header.user.userName = this.storage.getItem('user');
   }
+
 
   toLogin(){
     // save page to redirector
     const currentPage = location.pathname
     localStorage.setItem('toRedirect', currentPage);
     // redirect to login
-    this.router.navigateByUrl('/auth')
+    this.router.navigateByUrl('/auth');
   }
 
   async logOut() {
@@ -49,6 +53,7 @@ export class HeaderComponent implements OnInit {
     if( fromServer.ok ) {
       console.log('IF LOGOUT')
       // reset user
+      this.storage.clearItem('user');
       location.reload();
     }
   }

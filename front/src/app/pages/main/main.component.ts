@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ApiService } from '../../services/api.service';
+import { StorageService } from '../../services/storage.service';
+import appState from '../../app-state';
 
 @Component({
   selector: 'app-main',
@@ -7,9 +10,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MainComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private api: ApiService,
+    private storage: StorageService
+  ) { }
 
   ngOnInit() {
+
+    
   }
 
 }
