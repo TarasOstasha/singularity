@@ -3,10 +3,13 @@
     <!-- SIGN IN -->
     <form class="box" *ngSwitchCase=" 'login' " [formGroup]="authForm">
         <h1>Sign in  {{ userStorage }}</h1>
+
         <input class="form-control" type="text" placeholder="Email" name="email" formControlName="email">
         <app-form-validator [it]="authForm.get('email')"></app-form-validator>
+        
         <input class="form-control" type="password" placeholder="Password" name="password" formControlName="password">
         <app-form-validator [it]="authForm.get('password')"></app-form-validator>
+        
         <button (click)="singIn()">Sign In</button>
         <button (click)="appState.state_form = 'register' ">Create Account</button>
     </form>
@@ -14,6 +17,7 @@
     <!-- SIGN UP -->
     <form class="box" *ngSwitchCase=" 'register' " [formGroup]="authForm">
         <h1>Sign up</h1>
+        
         <input class="form-control" type="text" placeholder="Username" name="username" formControlName="userName">
         <app-form-validator [it]="authForm.get('userName')"></app-form-validator>
         

@@ -52,4 +52,10 @@ export class CarouselTestComponent implements OnInit {
       //alert('end of imgs')
     }
   }
+
+
+
+
+
+
 }

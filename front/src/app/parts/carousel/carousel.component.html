@@ -1,16 +1,22 @@
 <ul class="carousel">
     <div class="title-wrapper">
         <div class="title">
-                <h1>Internet Store</h1>
+            <h1>Internet Store </h1>
         </div>
     </div>
-    <li class="slides" *ngFor="let slide of imgSlides;let i = index;">
-        <img [src]="slide.img" alt="slide image" class="slide" *ngIf="i==currentSlide" [@slideInOut1] [style.left]="moveSlide"> 
+
+    <!-- <li class="slides" *ngFor="let slideImg of imgSlides; let i = index;" 
+            [style.left.px]="(i == currentSlide) ? slide : nextSlide ">
+        <img [src]="slideImg.img" alt="slide image" class="slide" *ngIf="compare(i)"> 
+    </li> -->
+
+    <li class="slides" *ngFor="let slideImg of imgSlides; let i = index;"
+        [style.margin-left.px]="(i == currentSlide) ? slide : nextSlide" >
+        <img [src]="slideImg.img" alt="slide image" class="slide" [style.width.px]="centerSlideWidth">
     </li>
+
     <div class="controls">
-        <div (click)="moveLeft()" class="control prev-slide">&#9668;</div>
+        <div (click)="moveLeft()" class="control prev-slide">&#9668; </div>
         <div (click)="moveRight()" class="control next-slide">&#9658;</div>
     </div>
 </ul>
-
-
