@@ -9,6 +9,7 @@ import appState from '../../app-state';
   styleUrls: ['./main.component.less']
 })
 export class MainComponent implements OnInit {
+  appState = appState;
 
   constructor(
     private api: ApiService,
@@ -16,7 +17,9 @@ export class MainComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-
+    setTimeout(()=>{
+      console.log(this.appState)
+    },500)
     
   }
 

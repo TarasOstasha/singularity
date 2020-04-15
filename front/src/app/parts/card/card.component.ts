@@ -14,22 +14,22 @@ export class CardComponent implements OnInit {
     this.appState = appState;
   }
 
-  productData = 
-    {
-      productName: 'example',
-      categories: 'example',
-      price: 100,
-      description: 'lorem djsfnkdsn kj kdnsfjkndsjfn  jfndsjkfndsjk njn',
-      imgs: ['https://images.unsplash.com/photo-1496979551903-46e46589a88b?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=cda12b505afa1beb06e49d89014cbd65&auto=format&fit=crop&w=634&q=80'],
-      sizes: ['4'],
-      views: 3,
-      breadCrumbs: [],
-      favoriteProducts: []
-    }
+  // productData = 
+  //   {
+  //     productName: 'example',
+  //     categories: 'example',
+  //     price: 100,
+  //     description: 'lorem djsfnkdsn kj kdnsfjkndsjfn  jfndsjkfndsjk njn',
+  //     imgs: ['https://images.unsplash.com/photo-1496979551903-46e46589a88b?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=cda12b505afa1beb06e49d89014cbd65&auto=format&fit=crop&w=634&q=80'],
+  //     sizes: ['4'],
+  //     views: 3,
+  //     breadCrumbs: [],
+  //     favoriteProducts: []
+  //   }
 
 
   ngOnInit() {
-    this.createFirstProduct();
+    //this.createFirstProduct();
   }
 
   async test() {
@@ -38,14 +38,12 @@ export class CardComponent implements OnInit {
   }
 
 
-  async createFirstProduct() {
-    try {
-      const fromServer: any = await this.api.product(this.productData);
-      console.log(fromServer);
-      this.appState.products = fromServer;
-    } catch (error) {
-      console.log(error);
-    }
+
+
+  async getProduct(id) {
+    const fromServer: any = await this.api.getProduct(id)
+    appState.products = fromServer.products;
+  
   }
 
 

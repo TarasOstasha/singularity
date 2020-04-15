@@ -35,4 +35,8 @@ export class ApiService {
   product(productData) {
     return this.http.post( url + 'products', productData, httpOptions).toPromise();
   }
+
+  getProduct(id) {
+    return this.http.get(url + 'product/' + id).toPromise(); //productID
+  }
 }

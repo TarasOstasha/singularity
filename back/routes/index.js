@@ -105,25 +105,18 @@ router.post('/products', cors(), async (req, res) => {
   try {
     //console.log(req.body)
     const product = new Product(req.body);
-    // const product = new Product({
-    //   productName: req.body.productName,
-    //   categories: req.body.categories,
-    //   price: req.body.price,
-    //   description: req.body.description,
-    //   imgs: req.body.imgs,
-    //   sizes: req.body.sizes,
-    //   views: req.body.views,
-    //   breadCrumbs: req.body.breadCrumbs,
-    //   favoriteProducts: req.body.favoriteProducts
-    // });
+
     await product.save()
-    res.json({ ok: true });
+    res.json({ ok: true, product: product });
   } catch (error) {
     res.json({ ok: false, message: error });
     res.sendStatus(500);
   }
 })
 
+
+
+ // get product
 router.get('/product/:id', cors(), async (req, res) => {
   try {
     const _id = req.params.id;
