@@ -8,7 +8,7 @@
     <!-- <app-carousel-test></app-carousel-test> -->
 
     <!-- CARDS -->
-    <app-card></app-card>
+    <app-card *ngFor="let card of appState.products; let i = index;"></app-card>
     <!-- FOOTER -->
     <app-footer></app-footer>
 </div>

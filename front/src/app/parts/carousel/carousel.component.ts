@@ -14,6 +14,10 @@ export class CarouselComponent implements OnInit {
     { img: 'https://picsum.photos/1280/720?random=1' },
     { img: 'https://picsum.photos/1280/720?random=2' },
     { img: 'https://picsum.photos/1280/720?random=3' },
+    { img: 'https://picsum.photos/1280/720?random=4' },
+    { img: 'https://picsum.photos/1280/720?random=5' },
+    { img: 'https://picsum.photos/1280/720?random=6' },
+    { img: 'https://picsum.photos/1280/720?random=7' },
   ]
 
   currentSlide = 0;

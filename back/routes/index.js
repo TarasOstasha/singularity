@@ -1,7 +1,10 @@
 var express = require('express');
 var router = express.Router();
 var cors = require('cors');
-const User = require('../models/user')
+//const mongoose = require('mongoose');
+
+const User = require('../models/user');
+const Product = require('../models/product');
 
 const { MongoClient } = require('mongodb');
 
@@ -9,9 +12,11 @@ const url = 'http://localhost:4200' // dev mode
 //const url = ''; // production mode
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
+router.get('/', function (req, res, next) {
   res.render('index', { title: 'Express' });
 });
+
+
 
 
 router.get('/user', async (req, res) => {
@@ -36,7 +41,7 @@ router.get('/user', async (req, res) => {
 
   // Mongoose method how to create first data
   const newUser = await User.findOne({ userName: 'john' });
-  res.json( {ok:true})
+  res.json({ ok: true })
   console.log(newUser);
 
   //create new
@@ -48,16 +53,16 @@ router.get('/user', async (req, res) => {
 
 
 router.get('/test', (req, res, next) => {
-  res.json({ ok : true });
+  res.json({ ok: true });
 });
 
 // register
-router.post('/register', cors(), async (req, res)=>{
+router.post('/register', cors(), async (req, res) => {
   try {
     const userEmail = req.body.email;
     const user = await User.findOne({ email: userEmail }); // request to data base
-    if (user) return res.json({ ok: false, message: 'this user already exist' });         
-    
+    if (user) return res.json({ ok: false, message: 'this user already exist' });
+
     // create new user
     const new_user = new User({
       userName: req.body.name,
@@ -65,9 +70,9 @@ router.post('/register', cors(), async (req, res)=>{
       password: req.body.password
     });
     new_user.save();
-    res.json({ ok: true , message: 'new account has been created' });
+    res.json({ ok: true, message: 'new account has been created' });
 
-    req.login(req.body, ()=>{
+    req.login(req.body, () => {
       res.json({ ok: true })
     })
   } catch (error) {
@@ -82,17 +87,51 @@ router.post('/login', cors(), async (req, res) => {
   const userEmail = req.body.email;
   const user = await User.findOne({ email: userEmail });
   console.log(user);
-  if (!user) return res.json({ ok: false, message: 'his user not exist' });       
+  if (!user) return res.json({ ok: false, message: 'his user not exist' });
 
-  req.login(req.body, ()=>{
-    res.json({ ok: true,  user })
+  req.login(req.body, () => {
+    res.json({ ok: true, user })
   })
 
 });
-
+// log out
 router.get('/log-out', cors(), async (req, res) => {
   req.logout();
   res.json({ ok: true })
 })
+
+// add products
+router.post('/products', cors(), async (req, res) => {
+  try {
+    //console.log(req.body)
+    const product = new Product(req.body);
+    // const product = new Product({
+    //   productName: req.body.productName,
+    //   categories: req.body.categories,
+    //   price: req.body.price,
+    //   description: req.body.description,
+    //   imgs: req.body.imgs,
+    //   sizes: req.body.sizes,
+    //   views: req.body.views,
+    //   breadCrumbs: req.body.breadCrumbs,
+    //   favoriteProducts: req.body.favoriteProducts
+    // });
+    await product.save()
+    res.json({ ok: true });
+  } catch (error) {
+    res.json({ ok: false, message: error });
+    res.sendStatus(500);
+  }
+})
+
+router.get('/product/:id', cors(), async (req, res) => {
+  try {
+    const _id = req.params.id;
+    const product = await Product.findOne({ _id });
+    res.json({ ok: true, product: product })
+  } catch (err) {
+    console.log(err);
+  };
+});
 
 module.exports = router;

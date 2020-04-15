@@ -31,4 +31,8 @@ export class ApiService {
   logOut() {
     return this.http.get( url + 'log-out' ).toPromise();
   }
+
+  product(productData) {
+    return this.http.post( url + 'products', productData, httpOptions).toPromise();
+  }
 }
