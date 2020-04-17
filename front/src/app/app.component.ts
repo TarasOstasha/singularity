@@ -30,6 +30,16 @@ export class AppComponent {
    ngOnInit() {
      this.createFirstProduct();
      this.createFirstProduct();
+     this.createFirstProduct();
+     this.createFirstProduct();
+     this.createFirstProduct();
+     this.createFirstProduct();
+     this.createFirstProduct();
+     this.createFirstProduct();
+     this.createFirstProduct();
+     this.createFirstProduct();
+     this.createFirstProduct();
+     this.createFirstProduct();
    }
 
    async createFirstProduct() {

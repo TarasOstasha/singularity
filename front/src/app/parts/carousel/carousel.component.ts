@@ -60,10 +60,6 @@ export class CarouselComponent implements OnInit {
     console.log(this.counter)
     this.slide = this.slide + this.sliderWidth();
     if (this.counter <= 0) { this.counter = lastImg + 1; return this.slide = -this.sliderWidth() * lastImg; }
-
-    // old staff
-    // if (this.currentSlide == 0) this.currentSlide = this.endSlider
-    // else this.currentSlide--;
   }
   moveRight() {
     this.counter++
@@ -73,33 +69,14 @@ export class CarouselComponent implements OnInit {
     this.nextSlide = 0;
     this.slide = this.slide - this.sliderWidth();
 
-    //console.log(this.counter)
-
-    if (this.counter <= 0) {
-
-
-      console.log(this.slide, 'if move right', this.counter, 'if move right')
-
-    } else if (this.counter >= lastImg) {
+    if (this.counter >= lastImg) {
       console.log(this.slide, 'if else move right', this.counter, 'if else move right')
       this.counter = 1;
       this.slide = 0;
 
     }
-    //if(lastImg) this.slide = this.sliderWidth() * this.imgSlides[0];
-
-
-    // old staff
-    //if (this.currentSlide == this.endSlider) { //тут оприділяю що в нас наш каунтер дійшов до кінця масиву
-    //this.currentSlide = 0; // обнуляю каунтер 
-
-    //} 
-    //else this.currentSlide++;  // тут каунтер збільшую 
   }
 
-  // compare(i) {
-  //   //return i == this.currentSlide || i == this.nextSlider 
-  // }
 
 
 }
