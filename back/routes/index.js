@@ -105,7 +105,7 @@ router.post('/products', cors(), async (req, res) => {
   try {
     //console.log(req.body)
     const product = new Product(req.body);
-
+    console.log(product)
     await product.save()
     res.json({ ok: true, product: product });
   } catch (error) {
@@ -120,6 +120,7 @@ router.post('/products', cors(), async (req, res) => {
 router.get('/product/:id', cors(), async (req, res) => {
   try {
     const _id = req.params.id;
+    console.log(_id);
     const product = await Product.findOne({ _id });
     res.json({ ok: true, product: product })
   } catch (err) {

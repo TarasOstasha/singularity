@@ -36,7 +36,7 @@ export class CarouselComponent implements OnInit {
 
   ngOnInit() {
     this.carousel = document.querySelector('.carousel');
-    console.log(this.slide, 'this.slide ngOnInit')
+    //console.log(this.slide, 'this.slide ngOnInit')
     const delay = 5000; //ms
     this.endSlider = this.imgSlides.length - 1; // останній елемент в масиві
     this.startSlider = this.imgSlides[0]; // 1 елемент в масиві

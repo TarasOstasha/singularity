@@ -25,7 +25,8 @@ import { ApiService } from './services/api.service';
 import { AuthComponent } from './pages/auth/auth.component';
 import { RedirectorComponent } from './pages/redirector/redirector.component';
 import { ProductComponent } from './pages/product/product.component';
-import { FormValidatorComponent } from './parts/form-validator/form-validator.component'
+import { FormValidatorComponent } from './parts/form-validator/form-validator.component';
+import { ParseArrayPipe } from './pipes/parse-array.pipe'
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { FormValidatorComponent } from './parts/form-validator/form-validator.co
     AuthComponent,
     RedirectorComponent,
     ProductComponent,
-    FormValidatorComponent
+    FormValidatorComponent,
+    ParseArrayPipe
   ],
   imports: [
     BrowserModule,

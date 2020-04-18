@@ -42,12 +42,12 @@ export class AppComponent {
      this.createFirstProduct();
    }
 
-   async createFirstProduct() {
+   async createFirstProduct() { 
     try {
-      const fromServer: any = await this.api.product(this.productData);
-      console.log(fromServer.product);
+      let fromServer: any = await this.api.product(this.productData);
+      console.log(fromServer, appState)
       this.appState.products.push(fromServer.product);
-      console.log(this.appState.products, 'app state products array');
+
     } catch (error) {
       console.log(error);
     }

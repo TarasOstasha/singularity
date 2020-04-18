@@ -10,7 +10,7 @@
     <div class="container">
         <!-- <div class="row"> -->
             <div class="card-wrapper">
-                <app-card *ngFor="let card of appState.products; let i = index;"></app-card>
+                <app-card *ngFor="let card of appState.products; let i = index;" [appStateCard]="card" (onChanged)="cardHandler($event)"></app-card>
             </div>
         <!-- </div> -->
     </div>

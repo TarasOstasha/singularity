@@ -1,16 +1,24 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ApiService } from '../../services/api.service';
 import appState from '../../app-state';
+import { ActivatedRoute } from '@angular/router';
+import { Pipe, PipeTransform } from '@angular/core';
 
 @Component({
   selector: 'app-card',
   templateUrl: './card.component.html',
   styleUrls: ['./card.component.less']
 })
+@Pipe({
+  name: 'parseArray'
+})
 export class CardComponent implements OnInit {
   appState: any;
 
-  constructor(private api: ApiService) {
+  @Output() onChanged = new EventEmitter<any>();
+  @Input() appStateCard: any;
+
+  constructor(private api: ApiService, private route: ActivatedRoute) {
     this.appState = appState;
   }
 
@@ -24,27 +32,32 @@ export class CardComponent implements OnInit {
   //     sizes: ['4'],
   //     views: 3,
   //     breadCrumbs: [],
-  //     favoriteProducts: []
+  //     favoriteProducts: [Ź
   //   }
 
 
   ngOnInit() {
+  
     //this.createFirstProduct();
   }
 
-  async test() {
-    const fromServer = await this.api.test()
-    console.log(fromServer);
+  readMoreInfo(element) {
+    const n = this.onChanged.emit(this.appStateCard);
+    console.log(n)
   }
 
 
 
 
-  async getProduct(id) {
-    const fromServer: any = await this.api.getProduct(id)
-    appState.products = fromServer.products;
+  // async getProduct(id) {
+  //   const fromServer: any = await this.api.getProduct(id)
+  //   appState.products = fromServer.products;
   
-  }
+  // }
 
+  // test() {
+  //   let id = this.route.snapshot.paramMap.get('productId')
+  //   console.log(id);
+  // }
 
 }
