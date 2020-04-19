@@ -21,6 +21,7 @@ export class HeaderComponent implements OnInit {
   
   appState = appState;  
   userStorage: any;
+  filterToogle: boolean = true;
   
   constructor(  
     private router: Router,
@@ -56,6 +57,10 @@ export class HeaderComponent implements OnInit {
       this.storage.clearItem('user');
       location.reload();
     }
+  }
+
+  toogleIconHeader() {
+    this.filterToogle = !this.filterToogle;
   }
 
 

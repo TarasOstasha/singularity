@@ -11,6 +11,7 @@ import appState from '../../app-state';
 export class ProductComponent implements OnInit {
   appState: any;
   currentCard = {};
+  
 
   constructor(
     private api: ApiService,

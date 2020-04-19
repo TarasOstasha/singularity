@@ -5,7 +5,11 @@
                 LOGO
             </div>
             <div class="search-block">
-                <input type="text" placeholder="search">
+                <input [(ngModel)]="appState.search_input" type="text" placeholder="search">
+                <div class="filter-icon">
+                    <i (click)="toogleIconHeader()"
+                        [class]="(filterToogle) ? 'fa fa-toggle-off oogle-off' : 'fa fa-toggle-on toogle-on' "></i>
+                </div>
             </div>
             <div class="menu-block">
                 <nav class="nav">
@@ -38,19 +42,67 @@
                 </nav>
             </div>
             <div class="auth-block">
-                <div class="sign-in" (click)="toLogin()" *ngIf="!appState.header.user.isLogged && !appState.header.user.userName ">
-                    Login 
+                <div class="sign-in" (click)="toLogin()"
+                    *ngIf="!appState.header.user.isLogged && !appState.header.user.userName ">
+                    Login
                     <i class="fa fa-sign-in"></i>
                 </div>
                 <div class="sign-out" *ngIf="appState.header.user.isLogged || appState.header.user.userName ">
                     {{ appState.header.user.userName }}
                 </div>
                 &nbsp;&nbsp;
-                <div (click)="logOut()" class="sign-out" *ngIf="appState.header.user.isLogged || appState.header.user.userName ">
+                <div (click)="logOut()" class="sign-out"
+                    *ngIf="appState.header.user.isLogged || appState.header.user.userName ">
                     LogOut
                     <i class="fa fa-sign-out"></i>
                 </div>
             </div>
+
         </div>
+    </div>
+    <div [class]="(filterToogle) ? 'filter-block-hidden ' : 'filter-block filter-block-visible' ">
+            
+                    <div class="row" id="search">
+                        <form id="search-form " action="" method="POST" enctype="multipart/form-data">
+                            <div class="form-group col-md-9">
+                                <input class="form-control " type="text" placeholder="Search" />
+                            </div>
+                            <div class="form-group col-md-3">
+                                <button type="submit" class="btn btn-block btn-primary">Search</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="filter" id="filter">
+                        <form>
+                            <div class="form-group col-sm-3 col-xs-6">
+                                <select data-filter="make" class="filter-make filter form-control">
+                                    <option value="">Select Make</option>
+                                    <option value="">Show All</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-sm-3 col-xs-6">
+                                <select data-filter="model" class="filter-model filter form-control">
+                                    <option value="">Select Model</option>
+                                    <option value="">Show All</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-sm-3 col-xs-6">
+                                <select data-filter="type" class="filter-type filter form-control">
+                                    <option value="">Select Type</option>
+                                    <option value="">Show All</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-sm-3 col-xs-6">
+                                <select data-filter="price" class="filter-price filter form-control">
+                                    <option value="">Select Price Range</option>
+                                    <option value="">Show All</option>
+                                </select>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="row" id="products">
+                        
+                    </div>
+                
     </div>
 </div>
