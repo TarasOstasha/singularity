@@ -114,9 +114,20 @@ router.post('/products', cors(), async (req, res) => {
   }
 })
 
+// get all products
+router.get('/products', cors(), async (req, res) => {
+  try {
+    const allProducts = await Product.find();
+    res.json({ ok: true, allProducts })
+  } catch (error) {
+    console.log(error)
+    res.sendStatus(500);
+  }
+})
 
 
- // get product
+
+// get product
 router.get('/product/:id', cors(), async (req, res) => {
   try {
     const _id = req.params.id;
@@ -124,8 +135,24 @@ router.get('/product/:id', cors(), async (req, res) => {
     const product = await Product.findOne({ _id });
     res.json({ ok: true, product: product })
   } catch (err) {
-    console.log(err);
+    console.log(error)
+    res.sendStatus(500);
   };
 });
+
+// search
+router.get('/search', cors(), async (req, res) => {
+  try {
+    let searchData;
+    const query = req.query.q;
+    if( query == '' ) searchData = await Product.find()
+    else searchData = await Product.find({ productName: query })
+    res.json({ ok: true, data: searchData })
+  } catch (error) {
+    console.log(error)
+    res.sendStatus(500);
+  }
+
+})
 
 module.exports = router;

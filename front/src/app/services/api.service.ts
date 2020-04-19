@@ -39,4 +39,11 @@ export class ApiService {
   getProduct(id) {
     return this.http.get(url + 'product/' + id).toPromise(); //productID
   }
+  getSearchData(query) {
+    return this.http.get( `${url}search?q=${query}` ).toPromise();
+  }
+
+  getProducts() {
+    return this.http.get( url + 'products' ).toPromise();
+  }
 }

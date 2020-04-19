@@ -28,24 +28,24 @@ export class AppComponent {
   }
 
    ngOnInit() {
-     this.createFirstProduct();
-     this.createFirstProduct();
-     this.createFirstProduct();
-     this.createFirstProduct();
-     this.createFirstProduct();
-     this.createFirstProduct();
-     this.createFirstProduct();
-     this.createFirstProduct();
-     this.createFirstProduct();
-     this.createFirstProduct();
-     this.createFirstProduct();
-     this.createFirstProduct();
+     this.getProductsFromServer();
+    //  this.createFirstProduct();
+    //  this.createFirstProduct();
+    //  this.createFirstProduct();
+    //  this.createFirstProduct();
+    //  this.createFirstProduct();
+    //  this.createFirstProduct();
+
+   }
+   async getProductsFromServer() {
+     const fromServer: any = await this.api.getProducts();
+     this.appState.products = fromServer.allProducts;
    }
 
    async createFirstProduct() { 
     try {
       let fromServer: any = await this.api.product(this.productData);
-      console.log(fromServer, appState)
+      //console.log(fromServer, appState)
       this.appState.products.push(fromServer.product);
 
     } catch (error) {
