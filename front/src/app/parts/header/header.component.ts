@@ -25,8 +25,15 @@ export class HeaderComponent implements OnInit {
   userStorage: any;
   filterToogle: boolean = true;
   search_value: string;
+  searchedProducts: boolean = false;
+  
+  // header input
   // 1
   myObservable = new Subject<string>(); // create new observable
+
+  // filter bar input
+  // 1
+  filterBarObservable = new Subject<string>();
 
   constructor(
     private router: Router,
@@ -40,6 +47,9 @@ export class HeaderComponent implements OnInit {
         this.appState.products = filteredProducts.data;
         console.log(results);
       });
+
+        // filter bar input
+  // 2
   }
 
 
@@ -48,7 +58,7 @@ export class HeaderComponent implements OnInit {
     return myObservable.pipe( // received value per click
       debounceTime(400), //delay time
       distinctUntilChanged(), // 
-      switchMap( query => this.api.getSearchData(query) )
+      switchMap(query => this.api.getSearchData(query))
     )
   }
 
@@ -62,11 +72,11 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {
     appState.header.user.userName = this.storage.getItem('user');
-
   }
 
   onKey() {
-    console.log(this.search_value)
+    //if(this.search_value.length > 0) this.searchedProducts = 'block';
+    console.log(this.search_value.length)
   }
 
 
@@ -92,6 +102,11 @@ export class HeaderComponent implements OnInit {
 
   toogleIconHeader() {
     this.filterToogle = !this.filterToogle;
+
+    // hide searched products and clear input value
+    if( this.filterToogle == false )  this.searchedProducts = true;  
+    else  this.search_value = ''; 
+
   }
 
 
