@@ -12,7 +12,8 @@ const appState = {
         isLogged: false
       },
       basket: {
-        open: false
+        open: false,
+        products:[]
       }
     },
     //pages

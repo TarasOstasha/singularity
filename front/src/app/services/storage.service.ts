@@ -22,6 +22,16 @@ export class StorageService {
         localStorage.removeItem(key);
     }
 
+    async getBasketFromStorage() {
+        const basket = await this.getItem('basket');
+        return (Array.isArray(basket)) ? basket : [];
+    }
+
+    refreshBasketStorage() {
+        const json = JSON.stringify(appState.header.basket.products);
+        localStorage.setItem('basket', json);
+    }
+
 
 
 }

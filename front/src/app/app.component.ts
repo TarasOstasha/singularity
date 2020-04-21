@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ApiService } from './services/api.service';
+import { StorageService } from './services/storage.service';
 
 import appState from './app-state';
 
@@ -12,7 +13,7 @@ export class AppComponent {
   title = 'front';
   appState: any = appState;
 
-  constructor( private api: ApiService ) {}
+  constructor( private api: ApiService, private storage: StorageService ) {}
 
   productData = 
   {
@@ -27,14 +28,9 @@ export class AppComponent {
     favoriteProducts: []
   }
 
-   ngOnInit() {
+   async ngOnInit() {
      this.getProductsFromServer();
-    //  this.createFirstProduct();
-    //  this.createFirstProduct();
-    //  this.createFirstProduct();
-    //  this.createFirstProduct();
-    //  this.createFirstProduct();
-    //  this.createFirstProduct();
+     this.appState.header.basket.products = await this.storage.getBasketFromStorage();
 
    }
    async getProductsFromServer() {

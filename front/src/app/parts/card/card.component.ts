@@ -47,17 +47,11 @@ export class CardComponent implements OnInit {
   }
 
 
+  buyProduct(event) {
+    event.stopPropagation();
+    const n = this.onChanged.emit(this.appStateCard);
+    console.log(n)
+  }
 
-
-  // async getProduct(id) {
-  //   const fromServer: any = await this.api.getProduct(id)
-  //   appState.products = fromServer.products;
-  
-  // }
-
-  // test() {
-  //   let id = this.route.snapshot.paramMap.get('productId')
-  //   console.log(id);
-  // }
 
 }

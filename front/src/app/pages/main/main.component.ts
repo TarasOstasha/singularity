@@ -23,4 +23,11 @@ export class MainComponent implements OnInit {
     
   }
 
+  cardHandler(product) {
+    console.log('return data', product);
+    appState.header.basket.products.push(product); //додати продукт в корзину
+    this.storage.refreshBasketStorage();
+    //  this.header_state.basket = this.state.basket; // передати 
+  }
+
 }
