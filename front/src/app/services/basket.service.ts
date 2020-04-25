@@ -15,21 +15,20 @@ export class BasketService {
   constructor(private storage: StorageService) { }
 
 
-  async plus(product) {
-    
-   this.basket = await this.storage.getBasketFromStorage(); //duplicated
+  plus(product) {
+    this.refreshBasket();
     let index;
     const existProduct = this.basket.some((item, i) => {
       index = i;
       return item.product._id == product._id;
     });
- 
+
     if (existProduct) this.basket[index].amount++;
     else this.basket.push({ amount: 1, product });
-  
-    this.appState.header.basket.products = this.basket; 
-    this.storage.refreshBasketStorage();
-    
+
+    this.storage.setBasketStorage(this.basket);
+    return this.basket
+
   }
 
   productQuantity() {
@@ -39,29 +38,35 @@ export class BasketService {
 
   }
 
-   async refreshBasket() {
-    this.basket = await this.storage.getBasketFromStorage();
+  refreshBasket() {
+    this.basket = this.storage.getBasketFromStorage();
   }
 
-  async minus(product) {
-    this.basket = await this.storage.getBasketFromStorage(); // duplicated
-    this.basket.map((item) => {
-
-      if(item.product._id == product._id) {
+  minus(product) {
+    this.refreshBasket();
+    //this.basket = this.storage.getBasketFromStorage(); // duplicated
+    this.basket.map((item, index) => {
+      console.log(index, 'index map')
+      if (item.product._id == product._id) {
         console.log('product id are the same')
         console.log(item.amount)
-        item.amount--; //// ????????
+        console.log(this.basket[index])
+        if (item.amount > 1) this.basket[index].amount--; //// ????????
       }
-      this.storage.refreshBasketStorage();
     });
+    this.storage.setBasketStorage(this.basket); 
   }
 
-  async deleteProduct(product) {
-    
-    //console.log(this.state.products.filter(product => product._id != id))
-    //видалити всі продукти по id
-   /// this.basket = this.basket.filter(product => product._id != id);
-    this.storage.refreshBasketStorage();
+  deleteProduct(id) {
+    this.refreshBasket();
+    this.basket.map((product, index) => {
+      if (product.product._id == id) {
+        console.log(this.basket)
+        this.basket.splice(index, 1);
+
+      }
+    })
+    this.storage.setBasketStorage(this.basket);
   }
 
 
@@ -70,13 +75,11 @@ export class BasketService {
   }
 
   totalPrice() {
-    let total = 0; // need to show correct value when page is loading/opening the first time
+    this.refreshBasket();
+    let total = 0; 
     this.basket.map((product) => {
-      //console.log(product.amount)
       total += product.product.price * product.amount;
-      //console.log(total)
     })
     return total;
-    //console.log(this.basket)
   }
 }

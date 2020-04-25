@@ -13,14 +13,14 @@ https://designmodo.com/shopping-cart-ui/?utm_medium=email&utm_campaign=Newslette
                 </div>
 
                 <!-- Product #1 -->
-                <div class="item" *ngFor=" let item of appState.header.basket.products ; let i = index; ">
+                <div class="item" *ngFor=" let item of basketView ; let i = index; ">
                     <div class="buttons">
                         <span (click)="basket.deleteProduct(item.product._id)" class="delete-btn"></span>
                         <span class="like-btn"></span>
                     </div>
 
                     <div class="image">
-                        <img src="https://designmodo.com/demo/shopping-cart/item-1.png" alt="" />
+                        <img [src]=" 'https://designmodo.com/demo/shopping-cart/item-1.png' " alt="" />
                     </div>
 
                     <div class="description">
@@ -30,13 +30,13 @@ https://designmodo.com/shopping-cart-ui/?utm_medium=email&utm_campaign=Newslette
                     </div>
 
                     <div class="quantity">
-                        <button (click)="basket.plus(item.product)" class="plus-btn" type="button" name="button">
-                            <img src="https://designmodo.com/demo/shopping-cart/plus.svg" alt="" />
+                        <button (click)="plus(item.product)" class="plus-btn" type="button" name="button">
+                            <img [src]=" 'https://designmodo.com/demo/shopping-cart/plus.svg' " alt="" />
                         </button>
                         {{ item.amount }}
                         <!-- <input type="text" name="name" value="1"> -->
                         <!-- <span>{{ item.product.amount }}</span> -->
-                        <button (click)="basket.minus(item.product)" class="minus-btn" type="button" name="button">
+                        <button (click)="basket.minus(item.product)" [class]="(item.amount == 1) ? 'disableBtn' : 'minus-btn' " type="button" name="button">
                             <img src="https://designmodo.com/demo/shopping-cart/minus.svg" alt="" />
                         </button>
                     </div>
@@ -44,6 +44,7 @@ https://designmodo.com/shopping-cart-ui/?utm_medium=email&utm_campaign=Newslette
 
                     <!-- <div class="total-price">{{ item.product.price  }}</div> -->
                 </div>
+
             </div>
         </div>
 

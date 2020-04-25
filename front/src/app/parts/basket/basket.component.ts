@@ -10,16 +10,28 @@ import { BasketService } from '../../services/basket.service';
 })
 export class BasketComponent implements OnInit {
   appState: any = appState
+  basketView: any = [];
+
   //@Input() appStateCard: any
 
   currentProductPrice: number;
 
   constructor(private storage: StorageService, private basket: BasketService) { }
 
-  async ngOnInit() {
-    this.appState.header.basket.products = await this.storage.getBasketFromStorage();
-    console.log(this.appState.header.basket.products, 'products ng on init')
+  ngOnInit() {
+
+    this.basketView = this.storage.getBasketFromStorage();
+    console.log(this.basketView, 'products ng on init')
   }
+
+  plus(product) {
+    this.basketView = this.basket.plus(product);
+  }
+
+  minus() {
+
+  }
+
 
 
 }
