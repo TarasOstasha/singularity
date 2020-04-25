@@ -1,1 +1,81 @@
-<p>basket works!</p>
+<!-- tutorial
+
+https://designmodo.com/shopping-cart-ui/?utm_medium=email&utm_campaign=Newsletter%20Issue%20153&utm_content=Newsletter%20Issue%20153+CID_bef1ea1ec52c62ff58db48fa53e185ad&utm_source=eWebDesigncom%20Newsletter
+
+-->
+<div class="container">
+    <div class="row">
+        <div class="col-md-9">
+            <div class="shopping-cart">
+                <!-- Title -->
+                <div class="title">
+                    Shopping Bag
+                </div>
+
+                <!-- Product #1 -->
+                <div class="item" *ngFor=" let item of appState.header.basket.products ; let i = index; ">
+                    <div class="buttons">
+                        <span (click)="basket.deleteProduct(item.product._id)" class="delete-btn"></span>
+                        <span class="like-btn"></span>
+                    </div>
+
+                    <div class="image">
+                        <img src="https://designmodo.com/demo/shopping-cart/item-1.png" alt="" />
+                    </div>
+
+                    <div class="description">
+                        <span>Common Projects</span>
+                        <span>Bball High</span>
+                        <span>White</span>
+                    </div>
+
+                    <div class="quantity">
+                        <button (click)="basket.plus(item.product)" class="plus-btn" type="button" name="button">
+                            <img src="https://designmodo.com/demo/shopping-cart/plus.svg" alt="" />
+                        </button>
+                        {{ item.amount }}
+                        <!-- <input type="text" name="name" value="1"> -->
+                        <!-- <span>{{ item.product.amount }}</span> -->
+                        <button (click)="basket.minus(item.product)" class="minus-btn" type="button" name="button">
+                            <img src="https://designmodo.com/demo/shopping-cart/minus.svg" alt="" />
+                        </button>
+                    </div>
+                    <div class="total-price">{{ basket.subTotalPrice( item.amount, item.product.price ) }} $</div>
+
+                    <!-- <div class="total-price">{{ item.product.price  }}</div> -->
+                </div>
+            </div>
+        </div>
+
+        <!-- summary -->
+        <div class="col-md-3">
+            <div class="summary">
+                <div class="summary-total-items"><span class="total-items"></span> Items in your Bag</div>
+                <div class="summary-subtotal">
+                    <div class="subtotal-title">Subtotal</div>
+                    <div class="subtotal-value final-value" id="basket-subtotal">{{ basket.totalPrice() }} $</div>
+                    <div class="summary-promo hide">
+                        <div class="promo-title">Promotion</div>
+                        <div class="promo-value final-value" id="basket-promo"></div>
+                    </div>
+                </div>
+                <div class="summary-delivery">
+                    <select name="delivery-collection" class="summary-delivery-selection">
+                        <option value="0" selected="selected">Select Collection or Delivery</option>
+                        <option value="collection">Collection</option>
+                        <option value="first-class">Royal Mail 1st Class</option>
+                        <option value="second-class">Royal Mail 2nd Class</option>
+                        <option value="signed-for">Royal Mail Special Delivery</option>
+                    </select>
+                </div>
+                <div class="summary-total">
+                    <div class="total-title">Total</div>
+                    <div class="total-value final-value" id="basket-total">130.00</div>
+                </div>
+                <div class="summary-checkout">
+                    <button class="checkout-cta">Go to Secure Checkout</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

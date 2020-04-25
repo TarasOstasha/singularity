@@ -57,9 +57,9 @@
                     LogOut
                     <i class="fa fa-sign-out"></i>
                 </div>
-                <div class="basket-block">
-                    <i routerLink="/basket" class="fa fa-shopping-cart"></i>
-                    {{ appState.header.basket.products.length }}
+                <div class="basket-block" routerLink="/basket">
+                    <i class="fa fa-shopping-cart"></i>
+                    {{ basket.productQuantity() }}
                 </div>
             </div>
 

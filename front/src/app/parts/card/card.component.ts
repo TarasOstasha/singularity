@@ -42,15 +42,14 @@ export class CardComponent implements OnInit {
   }
 
   readMoreInfo(element) {
-    const n = this.onChanged.emit(this.appStateCard);
-    console.log(n)
+
   }
 
 
   buyProduct(event) {
     event.stopPropagation();
-    const n = this.onChanged.emit(this.appStateCard);
-    console.log(n)
+    this.onChanged.emit(this.appStateCard); // move product to upper level // where exactly I got this data in upper level? main component
+  
   }
 
 

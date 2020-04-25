@@ -5,6 +5,7 @@ import { ApiService } from '../../services/api.service';
 import { StorageService } from '../../services/storage.service';
 import { Subject, Observable, pipe } from 'rxjs';
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
+import { BasketService } from '../../services/basket.service';
 
 
 @Component({
@@ -38,7 +39,8 @@ export class HeaderComponent implements OnInit {
   constructor(
     private router: Router,
     private api: ApiService,
-    private storage: StorageService
+    private storage: StorageService,
+    private basket: BasketService
   ) {
     // 2 
     this.rxFilter(this.myObservable)
@@ -70,8 +72,12 @@ export class HeaderComponent implements OnInit {
     //console.log(this.el.nativeElement.offsetWidth)
   }
 
-  ngOnInit() {
+  async ngOnInit() {
     appState.header.user.userName = this.storage.getItem('user');
+    //setInterval(() => {
+      //console.log(this.basket.productQuantity())
+      console.log(this.basket.basket = await this.storage.getBasketFromStorage())
+   // },2000)
   }
 
   onKey() {

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../services/api.service';
 import { StorageService } from '../../services/storage.service';
+import { BasketService } from '../../services/basket.service';
 import appState from '../../app-state';
 
 @Component({
@@ -13,7 +14,8 @@ export class MainComponent implements OnInit {
 
   constructor(
     private api: ApiService,
-    private storage: StorageService
+    private storage: StorageService,
+    private basket: BasketService
   ) { }
 
   ngOnInit() {
@@ -25,8 +27,8 @@ export class MainComponent implements OnInit {
 
   cardHandler(product) {
     console.log('return data', product);
-    appState.header.basket.products.push(product); //додати продукт в корзину
-    this.storage.refreshBasketStorage();
+    this.basket.plus(product); //додати продукт в корзину
+    //this.storage.refreshBasketStorage();
     //  this.header_state.basket = this.state.basket; // передати 
   }
 
