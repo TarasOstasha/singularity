@@ -1,3 +1,4 @@
+<app-header></app-header>
 <!-- tutorial
 
 https://designmodo.com/shopping-cart-ui/?utm_medium=email&utm_campaign=Newsletter%20Issue%20153&utm_content=Newsletter%20Issue%20153+CID_bef1ea1ec52c62ff58db48fa53e185ad&utm_source=eWebDesigncom%20Newsletter
@@ -15,12 +16,13 @@ https://designmodo.com/shopping-cart-ui/?utm_medium=email&utm_campaign=Newslette
                 <!-- Product #1 -->
                 <div class="item" *ngFor=" let item of basketView ; let i = index; ">
                     <div class="buttons">
-                        <span (click)="basket.deleteProduct(item.product._id)" class="delete-btn"></span>
+                        <span (click)="deleteProduct(item.product._id)" class="delete-btn"></span>
                         <span class="like-btn"></span>
                     </div>
 
                     <div class="image">
-                        <img [src]=" 'https://designmodo.com/demo/shopping-cart/item-1.png' " alt="" />
+                        <!-- <img [src]=" 'https://designmodo.com/demo/shopping-cart/item-1.png' " alt="" /> -->
+                        <i class="fa fa-image my-img"></i>
                     </div>
 
                     <div class="description">
@@ -31,13 +33,15 @@ https://designmodo.com/shopping-cart-ui/?utm_medium=email&utm_campaign=Newslette
 
                     <div class="quantity">
                         <button (click)="plus(item.product)" class="plus-btn" type="button" name="button">
-                            <img [src]=" 'https://designmodo.com/demo/shopping-cart/plus.svg' " alt="" />
+                            <i class="fa fa-plus"></i>
+                            <!-- <img [src]=" 'https://designmodo.com/demo/shopping-cart/plus.svg' " alt="" /> -->
                         </button>
                         {{ item.amount }}
                         <!-- <input type="text" name="name" value="1"> -->
                         <!-- <span>{{ item.product.amount }}</span> -->
-                        <button (click)="basket.minus(item.product)" [class]="(item.amount == 1) ? 'disableBtn' : 'minus-btn' " type="button" name="button">
-                            <img src="https://designmodo.com/demo/shopping-cart/minus.svg" alt="" />
+                        <button (click)="minus(item.product)" [class]="(item.amount == 1) ? 'disableBtn' : 'minus-btn' " type="button" name="button">
+                            <i class="fa fa-minus"></i>
+                            <!-- <img src="https://designmodo.com/demo/shopping-cart/minus.svg" alt="" /> -->
                         </button>
                     </div>
                     <div class="total-price">{{ basket.subTotalPrice( item.amount, item.product.price ) }} $</div>
@@ -53,8 +57,8 @@ https://designmodo.com/shopping-cart-ui/?utm_medium=email&utm_campaign=Newslette
             <div class="summary">
                 <div class="summary-total-items"><span class="total-items"></span> Items in your Bag</div>
                 <div class="summary-subtotal">
-                    <div class="subtotal-title">Subtotal</div>
-                    <div class="subtotal-value final-value" id="basket-subtotal">{{ basket.totalPrice() }} $</div>
+                    <!-- <div class="subtotal-title">Subtotal</div> -->
+                    <!-- <div class="subtotal-value final-value" id="basket-subtotal">{{ basket.totalPrice() }} $</div> -->
                     <div class="summary-promo hide">
                         <div class="promo-title">Promotion</div>
                         <div class="promo-value final-value" id="basket-promo"></div>
@@ -71,7 +75,7 @@ https://designmodo.com/shopping-cart-ui/?utm_medium=email&utm_campaign=Newslette
                 </div>
                 <div class="summary-total">
                     <div class="total-title">Total</div>
-                    <div class="total-value final-value" id="basket-total">130.00</div>
+                    <div class="total-value final-value" id="basket-total">{{ basket.totalPrice() }} $</div>
                 </div>
                 <div class="summary-checkout">
                     <button class="checkout-cta">Go to Secure Checkout</button>
@@ -80,3 +84,4 @@ https://designmodo.com/shopping-cart-ui/?utm_medium=email&utm_campaign=Newslette
         </div>
     </div>
 </div>
+<app-footer></app-footer>

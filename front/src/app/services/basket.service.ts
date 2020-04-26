@@ -55,6 +55,7 @@ export class BasketService {
       }
     });
     this.storage.setBasketStorage(this.basket); 
+    return this.basket;
   }
 
   deleteProduct(id) {
@@ -67,6 +68,7 @@ export class BasketService {
       }
     })
     this.storage.setBasketStorage(this.basket);
+    return this.basket;
   }
 
 

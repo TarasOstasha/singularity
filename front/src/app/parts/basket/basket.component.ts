@@ -28,8 +28,12 @@ export class BasketComponent implements OnInit {
     this.basketView = this.basket.plus(product);
   }
 
-  minus() {
+  minus(product) {
+    this.basketView = this.basket.minus(product);
+  }
 
+  deleteProduct(id) {
+    this.basketView = this.basket.deleteProduct(id);
   }
 
 
