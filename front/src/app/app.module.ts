@@ -6,6 +6,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgxPageScrollCoreModule } from 'ngx-page-scroll-core';
 
 
 // Material design modules
@@ -43,7 +44,7 @@ import { BasketComponent } from './parts/basket/basket.component'
     ProductComponent,
     FormValidatorComponent,
     ParseArrayPipe,
-    BasketComponent
+    BasketComponent,
   ],
   imports: [
     BrowserModule,
@@ -52,7 +53,8 @@ import { BasketComponent } from './parts/basket/basket.component'
     MatSliderModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgxPageScrollCoreModule.forRoot({ duration: 500 })
   ],
   providers: [ApiService],
   bootstrap: [AppComponent]

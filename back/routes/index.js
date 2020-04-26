@@ -5,7 +5,8 @@ var cors = require('cors');
 
 const User = require('../models/user');
 const Product = require('../models/product');
-
+const Favorite = require('../models/favorites');
+ 
 const { MongoClient } = require('mongodb');
 
 const url = 'http://localhost:4200' // dev mode
@@ -155,4 +156,27 @@ router.get('/search', cors(), async (req, res) => {
 
 })
 
+// get favorite products
+router.get('/favorite-products', cors(), async(req, res) => {
+  try {
+    const idProduct = req.body._id;
+    const idUser = req.body.userId
+
+    const userFavorite = await Favorite.findOne({ idUser } );
+    if( userFavorite ) {
+      await Favorite.findOneAndUpdate({ idUser }, {  } )
+    }
+    
+  } catch (error) {
+    console.log(error)
+    res.sendStatus(500);
+  }
+})
+
 module.exports = router;
+
+
+
+// push to favorite product array
+// if user not exist create  new favorite product and  [id]
+// 

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+
 import  appState  from '../app-state';
 
 
@@ -13,6 +14,7 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class ApiService {
+  appState = appState;
 
   constructor( private http: HttpClient ) { }
 
@@ -45,5 +47,14 @@ export class ApiService {
 
   getProducts() {
     return this.http.get( url + 'products' ).toPromise();
+  }
+
+  favoriteProduct(_id) {
+    return this.http.post( url + 'favorite-products', { _id, userId: this.userId }, httpOptions ).toPromise();
+  }
+
+
+  get userId() {
+    return this.appState.header.user._id
   }
 }

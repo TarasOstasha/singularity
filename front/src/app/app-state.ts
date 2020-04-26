@@ -2,6 +2,7 @@ const appState = {
     hostName: (location.hostname == 'localhost') ? 'http://localhost/' : '/',
     //general
     products: [],
+    favoriteProducts: [],
     //header
     header: {
       isLogged: false,
