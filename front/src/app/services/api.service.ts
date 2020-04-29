@@ -49,12 +49,21 @@ export class ApiService {
     return this.http.get( url + 'products' ).toPromise();
   }
 
-  favoriteProduct(_id) {
-    return this.http.post( url + 'favorite-products', { _id, userId: this.userId }, httpOptions ).toPromise();
+  addFavoriteProducts(product) {
+    return this.http.post( url + 'favorite-products', product ,httpOptions ).toPromise();
   }
 
+  // favoriteProduct(_id) {
+  //   return this.http.post( url + 'favorite-products', { _id, userId: this.userId }, httpOptions ).toPromise();
+  // }
 
   get userId() {
     return this.appState.header.user._id
   }
+
+  ///// flight
+  getLocalization() {
+    return this.http.get(url + 'localization').toPromise();
+  }
+
 }

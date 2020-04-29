@@ -48,9 +48,11 @@ export class BasketComponent implements OnInit {
     this.basketView = this.basket.deleteProduct(id);
   }
 
-  addToFavorite(id) {
-    this.appState.favoriteProducts.push(id);
-    const fromServer = this.api.favoriteProduct(id);
+  async addToFavorite(product) {
+    console.log(product)
+    this.appState.favoriteProducts.push(product);
+    console.log(this.appState.favoriteProducts)
+    const fromServer = await this.api.addFavoriteProducts(product);
     console.log(fromServer);
   }
 

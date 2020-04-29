@@ -6,7 +6,7 @@ var cors = require('cors');
 const User = require('../models/user');
 const Product = require('../models/product');
 const Favorite = require('../models/favorites');
- 
+
 const { MongoClient } = require('mongodb');
 
 const url = 'http://localhost:4200' // dev mode
@@ -146,7 +146,7 @@ router.get('/search', cors(), async (req, res) => {
   try {
     let searchData;
     const query = req.query.q;
-    if( query == '' ) searchData = await Product.find()
+    if (query == '') searchData = await Product.find()
     else searchData = await Product.find({ productName: query })
     res.json({ ok: true, data: searchData })
   } catch (error) {
@@ -156,27 +156,87 @@ router.get('/search', cors(), async (req, res) => {
 
 })
 
-// get favorite products
-router.get('/favorite-products', cors(), async(req, res) => {
+// post favorite products
+router.post('/favorite-products', cors(), async (req, res) => {
   try {
-    const idProduct = req.body._id;
-    const idUser = req.body.userId
+    console.log(req.user, req.body, 'req user');
+    if (!req.user) return res.json({ ok: false, msg: 'Please log in' });
+    const productId = req.body._id;
+    const userId = req.user._id;
+    if (await Favorite.findOne({
+      productId,
+      userId
+    })) return res.json({ ok: false, mag: 'This item already exist in your list' });
 
-    const userFavorite = await Favorite.findOne({ idUser } );
-    if( userFavorite ) {
-      await Favorite.findOneAndUpdate({ idUser }, {  } )
-    }
-    
+    const favoriteProducts = await Favorite.create({
+      productId,
+      userId
+    })
+    favoriteProducts.save();
+
   } catch (error) {
     console.log(error)
     res.sendStatus(500);
   }
 })
 
+
+
+
+/////////////////////// flight
+var unirest = require("unirest");
+
+
+router.get('/flights', cors(), (req, res) => {
+  var request = unirest("GET", "https://skyscanner-skyscanner-flight-search-v1.p.rapidapi.com/apiservices/autosuggest/v1.0/UK/GBP/en-GB/");
+  var fromCityName = req.body.fromCityName;
+  var toCityName = req.body.toCityName;
+  req.query({
+    "query": fromCityName
+  });
+
+  req.headers({
+    "x-rapidapi-host": "skyscanner-skyscanner-flight-search-v1.p.rapidapi.com",
+    "x-rapidapi-key": "61c9c07416msh341cab0c2cb927ep115e4ejsn2ea5df19a531"
+  });
+
+
+  req.end(function (res) {
+    if (res.error) throw new Error(res.error);
+
+    console.log(res.body);
+  });
+})
+
+
+router.get('/localization', cors(), (req, res) => {
+  try {
+    var request = unirest("GET", "https://skyscanner-skyscanner-flight-search-v1.p.rapidapi.com/apiservices/reference/v1.0/countries/en-US");
+
+    request.headers({
+      "x-rapidapi-host": "skyscanner-skyscanner-flight-search-v1.p.rapidapi.com",
+      "x-rapidapi-key": "61c9c07416msh341cab0c2cb927ep115e4ejsn2ea5df19a531"
+    });
+  
+  
+    request.end(function (response) {
+      if (response.error) throw new Error(response.error);
+  
+      console.log(response.body);
+      res.json({ ok: true, localization: response.body })
+    });
+  } catch (error) {
+    res.json({ ok: false, error })
+  }
+
+})
+
+
+
+
+
+
 module.exports = router;
 
 
 
-// push to favorite product array
-// if user not exist create  new favorite product and  [id]
-// 

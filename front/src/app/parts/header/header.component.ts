@@ -64,6 +64,9 @@ export class HeaderComponent implements OnInit {
     )
   }
 
+  stateM() {
+    console.log(this.appState);
+  }
 
 
 

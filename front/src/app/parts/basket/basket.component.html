@@ -17,7 +17,7 @@ https://designmodo.com/shopping-cart-ui/?utm_medium=email&utm_campaign=Newslette
                 <div class="item" *ngFor=" let item of basketView ; let i = index; ">
                     <div class="buttons">
                         <span (click)="deleteProduct(item.product._id)" class="delete-btn"></span>
-                        <span (click)="addToFavorite(item.product._id)" class="like-btn"></span>
+                        <span (click)="addToFavorite(item.product)" class="like-btn"></span>
                     </div>
 
                     <div class="image">

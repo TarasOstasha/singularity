@@ -28,7 +28,8 @@ import { RedirectorComponent } from './pages/redirector/redirector.component';
 import { ProductComponent } from './pages/product/product.component';
 import { FormValidatorComponent } from './parts/form-validator/form-validator.component';
 import { ParseArrayPipe } from './pipes/parse-array.pipe';
-import { BasketComponent } from './parts/basket/basket.component'
+import { BasketComponent } from './parts/basket/basket.component';
+import { FlightComponent } from './pages/flight/flight.component'
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { BasketComponent } from './parts/basket/basket.component'
     FormValidatorComponent,
     ParseArrayPipe,
     BasketComponent,
+    FlightComponent,
   ],
   imports: [
     BrowserModule,
