@@ -191,20 +191,20 @@ router.get('/flights', cors(), (req, res) => {
   var request = unirest("GET", "https://skyscanner-skyscanner-flight-search-v1.p.rapidapi.com/apiservices/autosuggest/v1.0/UK/GBP/en-GB/");
   var fromCityName = req.body.fromCityName;
   var toCityName = req.body.toCityName;
-  req.query({
+  request.query({
     "query": fromCityName
   });
 
-  req.headers({
+  request.headers({
     "x-rapidapi-host": "skyscanner-skyscanner-flight-search-v1.p.rapidapi.com",
     "x-rapidapi-key": "61c9c07416msh341cab0c2cb927ep115e4ejsn2ea5df19a531"
   });
 
 
-  req.end(function (res) {
-    if (res.error) throw new Error(res.error);
+  request.end(function (response) {
+    if (response.error) throw new Error(res.error);
 
-    console.log(res.body);
+    console.log(response.body);
   });
 })
 
@@ -217,16 +217,37 @@ router.get('/localization', cors(), (req, res) => {
       "x-rapidapi-host": "skyscanner-skyscanner-flight-search-v1.p.rapidapi.com",
       "x-rapidapi-key": "61c9c07416msh341cab0c2cb927ep115e4ejsn2ea5df19a531"
     });
-  
-  
+
+
     request.end(function (response) {
       if (response.error) throw new Error(response.error);
-  
-      console.log(response.body);
+
+      //console.log(response.body);
       res.json({ ok: true, localization: response.body })
     });
   } catch (error) {
-    res.json({ ok: false, error })
+    res.json({ ok: false, error });
+  }
+
+})
+
+router.get('/currencies', cors(), (req, res) => {
+  try {
+    var request = unirest("GET", "https://skyscanner-skyscanner-flight-search-v1.p.rapidapi.com/apiservices/reference/v1.0/currencies");
+
+    request.headers({
+      "x-rapidapi-host": "skyscanner-skyscanner-flight-search-v1.p.rapidapi.com",
+      "x-rapidapi-key": "61c9c07416msh341cab0c2cb927ep115e4ejsn2ea5df19a531"
+    });
+
+
+    request.end(function (response) {
+      if (response.error) throw new Error(response.error);
+
+      console.log(response.body);
+    });
+  } catch (error) {
+    res.json({ ok: false, error });
   }
 
 })

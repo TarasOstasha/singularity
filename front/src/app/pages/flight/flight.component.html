@@ -26,27 +26,44 @@
                         </div>
                     </div>
                     <div class="flight-type">
-                            <div class="dropdown show">
-                                    <a class="btn dropdown-toggle btn-dropdown" href="#" role="button" id="dropdownMenuLink"
-                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        Economy
-                                    </a>
-                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                        <a class="dropdown-item" href="#">Business</a>
-                                        <a class="dropdown-item" href="#">First Class</a>
-                                    </div>
-                                </div>
+                        <div class="dropdown show">
+                            <a class="btn dropdown-toggle btn-dropdown" href="#" role="button" id="dropdownMenuLink"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Economy
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                <a class="dropdown-item" href="#">Business</a>
+                                <a class="dropdown-item" href="#">First Class</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="flights-adjustment">
                 <div class="direction">
-                    <input (ngModelChange)="filterLocalization()" [(ngModel)]="whereFrom" type="text" placeholder="Where from?">
+                    <input (ngModelChange)="filterLocalization()" [(ngModel)]="whereFrom" type="text"
+                        placeholder="Where from?">
+                    <!-- <div [class]="(cityFlag) ? 'cityNameShow' : 'cityNameHide' "> -->
+                        <ul *ngFor="let item of filteredLocalization" [class]="(cityFlag) ? 'cityNameHide' : 'cityName cityNameShow' ">
+                            <!-- <li [class]="(cityFlag) ? 'cityName cityNameShow' : 'cityNameHide' " (click)="setValue($event, inputVal)"> -->
+                            <li (click)="setValue($event, inputVal)">
+                                <i class="fa fa-plane"></i>
+                                {{ item.Name }} - {{ item.Code }}
+                            </li>
+                        </ul>
+                    <!-- </div> -->
                     <div class="go-back">
                         <i class="fa fa-chevron-left"></i>
                         <i class="fa fa-chevron-right"></i>
                     </div>
-                    <input type="text" placeholder="Where to?">
+                    <input (ngModelChange)="filterLocalizationTo()" [(ngModel)]="whereTo" type="text"
+                        placeholder="Where to?">
+                    <div *ngFor="let item of filteredLocalizationTo">
+                        <div *ngIf="whereTo">
+
+                            {{ item.Name }} - {{ item.Code }}
+                        </div>
+                    </div>
                 </div>
                 <div class="flight-calendar">
                     <input type="text">
