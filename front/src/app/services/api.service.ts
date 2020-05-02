@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import{ toQueryString } from './lib/staff'
 
 import  appState  from '../app-state';
 
@@ -64,6 +65,11 @@ export class ApiService {
   ///// flight
   getLocalization() {
     return this.http.get(url + 'localization').toPromise();
+  }
+
+  browseData(obj) {
+    const query = toQueryString(obj);
+    return this.http.get( url + 'reqData' + query).toPromise();
   }
 
 }

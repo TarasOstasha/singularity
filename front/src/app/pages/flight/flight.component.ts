@@ -140,8 +140,14 @@ export class FlightComponent implements OnInit, OnChanges {
     }
   }
 
+
+
   addDepartDate(date) {
-    this.value = date.target.title;
+    console.log(date)
+    const dateObj = new Date(date.target.title);
+    const t = dateObj.toISOString().substring(0, 10);;
+    //console.log(dateObj.toISOString());
+    this.value = t;
     this.depart = this.value;
   }
 
@@ -151,6 +157,21 @@ export class FlightComponent implements OnInit, OnChanges {
     this.return = this.value;
   }
 
+  flightData = {
+    Places : []
+  }
+
+  async browseData() {
+    const requestData = {
+      depart: this.depart,
+      return: this.return,
+      whereTo: this.whereTo,
+      whereFrom: this.whereFrom
+    }
+    const fromServer = await this.api.browseData(requestData);
+    console.log(fromServer);
+    this.flightData = fromServer.data;
+  }
 
 
 

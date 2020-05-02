@@ -78,8 +78,15 @@
                 </div>
             </div>
             <div class="search">
-                <button type="button" class="btn btn-primary">Search</button>
+                <button (click)="browseData()" type="button" class="btn btn-primary">Search</button>
             </div>
+        </div>
+        <div class="output">
+            <ul class="flight-list">
+                <li class="flight" *ngFor="let flight of flightData.Places">
+                    <div>{{ flight.Name }} test</div>
+                </li>
+            </ul>
         </div>
     </div>
 </div>

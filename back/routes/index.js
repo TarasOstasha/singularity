@@ -252,6 +252,38 @@ router.get('/currencies', cors(), (req, res) => {
 
 })
 
+router.get('/reqData', cors(), (req, res) => {
+  try {
+    const data = req.query;
+    console.log(data)
+    var request = unirest("GET", "https://skyscanner-skyscanner-flight-search-v1.p.rapidapi.com/apiservices/browsedates/v1.0/US/USD/en-US/SFO-sky/LAX-sky/" + data.depart);
+
+    request.query({
+      "inboundpartialdate": "2020-09-01" // date
+    });
+  
+    request.headers({
+      "x-rapidapi-host": "skyscanner-skyscanner-flight-search-v1.p.rapidapi.com",
+      "x-rapidapi-key": "61c9c07416msh341cab0c2cb927ep115e4ejsn2ea5df19a531"
+    });
+  
+  
+    request.end(function (response) {
+      console.log(response.error)
+      if (response.error) throw new Error(response.error);
+      res.json({ ok: true, data: response.body });
+      console.log(response.body);
+    });
+    
+
+  } catch (error) {
+    res.json({ ok: false, error });
+  }
+
+})
+
+
+
 
 
 
