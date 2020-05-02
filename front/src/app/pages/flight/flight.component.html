@@ -41,33 +41,40 @@
             </div>
             <div class="flights-adjustment">
                 <div class="direction">
-                    <input (ngModelChange)="filterLocalization()" [(ngModel)]="whereFrom" type="text"
+                    <input [(ngModel)]="whereFrom" (ngModelChange)="filterLocalization()" type="text"
                         placeholder="Where from?">
-                    <!-- <div [class]="(cityFlag) ? 'cityNameShow' : 'cityNameHide' "> -->
-                        <ul *ngFor="let item of filteredLocalization" [class]="(cityFlag) ? 'cityNameHide' : 'cityName cityNameShow' ">
-                            <!-- <li [class]="(cityFlag) ? 'cityName cityNameShow' : 'cityNameHide' " (click)="setValue($event, inputVal)"> -->
-                            <li (click)="setValue($event, inputVal)">
-                                <i class="fa fa-plane"></i>
-                                {{ item.Name }} - {{ item.Code }}
-                            </li>
-                        </ul>
-                    <!-- </div> -->
+                    <ul [class]="(cityFlag) ? 'cityName cityNameShow' : 'cityNameHide' ">
+                        <!-- <li [class]="(cityFlag) ? 'cityName cityNameShow' : 'cityNameHide' " (click)="setValue($event, inputVal)"> -->
+                        <li *ngFor="let item of filteredLocalization" (click)="setValue(item)">
+                            <i class="fa fa-plane"></i>
+                            {{ item.Name }} - {{ item.Code }}
+                        </li>
+                    </ul>
                     <div class="go-back">
                         <i class="fa fa-chevron-left"></i>
                         <i class="fa fa-chevron-right"></i>
                     </div>
-                    <input (ngModelChange)="filterLocalizationTo()" [(ngModel)]="whereTo" type="text"
-                        placeholder="Where to?">
-                    <div *ngFor="let item of filteredLocalizationTo">
-                        <div *ngIf="whereTo">
-
+                    <input [(ngModel)]="whereTo" (ngModelChange)="filterLocalizationTo()" type="text"
+                        placeholder="Where to?" >
+                    <ul [class]="(cityFlagTo) ? 'cityNameTo cityNameShow' : 'cityNameHide' ">
+                        <li *ngFor="let item of filteredLocalizationTo" (click)="setValueTo(item)">
+                            <i class="fa fa-plane"></i>
                             {{ item.Name }} - {{ item.Code }}
-                        </div>
-                    </div>
+                        </li>
+                    </ul>
                 </div>
                 <div class="flight-calendar">
-                    <input type="text">
-                    <input type="text">
+                    <input type="text" placeholder="Depart" (click)="departCalendar();">
+                    <div class="depart-calendar" *ngIf="departFlag">
+                        <ejs-calendar id=calendar [value]='value' [min]='minDate' [max]='maxDate' >
+                        </ejs-calendar>
+                    </div>
+
+                    <input type="text" placeholder="Return" (click)="returnCalendar();">
+                    <div class="returnCalendar" *ngIf="returnFlag">
+                        <ejs-calendar id=calendar [value]='value' [min]='minDate' [max]='maxDate' >
+                        </ejs-calendar>
+                    </div>
                 </div>
             </div>
             <div class="search">

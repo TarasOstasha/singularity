@@ -11,6 +11,7 @@ import { NgxPageScrollCoreModule } from 'ngx-page-scroll-core';
 
 // Material design modules
 import { MatSliderModule } from '@angular/material/slider';
+import { CalendarModule } from '@syncfusion/ej2-angular-calendars';
 
 // components
 import { MainComponent } from './pages/main/main.component';
@@ -56,6 +57,7 @@ import { FlightComponent } from './pages/flight/flight.component'
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    CalendarModule,
     NgxPageScrollCoreModule.forRoot({ duration: 500 })
   ],
   providers: [ApiService],
