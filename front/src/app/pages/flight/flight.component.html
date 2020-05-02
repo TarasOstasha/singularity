@@ -64,15 +64,15 @@
                     </ul>
                 </div>
                 <div class="flight-calendar">
-                    <input type="text" placeholder="Depart" (click)="departCalendar();">
+                    <input [(ngModel)]="depart" type="text" placeholder="Depart" (click)="departCalendar();">
                     <div class="depart-calendar" *ngIf="departFlag">
-                        <ejs-calendar id=calendar [value]='value' [min]='minDate' [max]='maxDate' >
+                        <ejs-calendar [isMultiSelection]='multiselect' id=calendar [value]='value' [min]='minDate' [max]='maxDate' (click)="addDepartDate($event)">
                         </ejs-calendar>
                     </div>
 
-                    <input type="text" placeholder="Return" (click)="returnCalendar();">
+                    <input [(ngModel)]="return" type="text" placeholder="Return" (click)="returnCalendar();">
                     <div class="returnCalendar" *ngIf="returnFlag">
-                        <ejs-calendar id=calendar [value]='value' [min]='minDate' [max]='maxDate' >
+                        <ejs-calendar [isMultiSelection]='multiselect' id=calendar [value]='value' [min]='minDate' [max]='maxDate' (click)="addReturnDate($event)">
                         </ejs-calendar>
                     </div>
                 </div>
