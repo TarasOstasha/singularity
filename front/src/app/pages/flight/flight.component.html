@@ -43,11 +43,16 @@
                 <div class="direction">
                     <input [(ngModel)]="whereFrom" (ngModelChange)="filterLocalization()" type="text"
                         placeholder="Where from?">
+                    <!-- DEPARTURE -->
                     <ul [class]="(cityFlag) ? 'cityName cityNameShow' : 'cityNameHide' ">
-                        <!-- <li [class]="(cityFlag) ? 'cityName cityNameShow' : 'cityNameHide' " (click)="setValue($event, inputVal)"> -->
-                        <li *ngFor="let item of filteredLocalization" (click)="setValue(item)">
+                        <li *ngFor="let item of filteredLocalization">
                             <i class="fa fa-plane"></i>
                             {{ item.Name }} - {{ item.Code }}
+                            <ul *ngIf=" whereFrom.length > 2 &&  allPlacesList[item.Name]">
+                                <!-- <div>{{ getlistPlaces(item.Name) }}</div> -->
+                                <li *ngFor="let place of allPlacesList[item.Name].Places" (click)="setValue(place)">
+                                    {{ place.PlaceName }}</li>
+                            </ul>
                         </li>
                     </ul>
                     <div class="go-back">
@@ -55,38 +60,97 @@
                         <i class="fa fa-chevron-right"></i>
                     </div>
                     <input [(ngModel)]="whereTo" (ngModelChange)="filterLocalizationTo()" type="text"
-                        placeholder="Where to?" >
+                        placeholder="Where to?">
+                    <!-- RETURN GLIGHT -->
                     <ul [class]="(cityFlagTo) ? 'cityNameTo cityNameShow' : 'cityNameHide' ">
-                        <li *ngFor="let item of filteredLocalizationTo" (click)="setValueTo(item)">
+                        <li *ngFor="let item of filteredLocalizationTo" >
                             <i class="fa fa-plane"></i>
                             {{ item.Name }} - {{ item.Code }}
+                            <ul *ngIf=" whereFrom.length > 2 &&  allPlacesList[item.Name]">
+                                <!-- <div>{{ getlistPlaces(item.Name) }}</div> -->
+                                <li *ngFor="let place of allPlacesList[item.Name].Places" (click)="setValueTo(place)">
+                                    {{ place.PlaceName }}
+                                </li>
+                            </ul>
                         </li>
                     </ul>
                 </div>
                 <div class="flight-calendar">
                     <input [(ngModel)]="depart" type="text" placeholder="Depart" (click)="departCalendar();">
                     <div class="depart-calendar" *ngIf="departFlag">
-                        <ejs-calendar [isMultiSelection]='multiselect' id=calendar [value]='value' [min]='minDate' [max]='maxDate' (click)="addDepartDate($event)">
+                        <ejs-calendar [isMultiSelection]='multiselect' id=calendar [value]='value' [min]='minDate'
+                            [max]='maxDate' (click)="addDepartDate($event)">
                         </ejs-calendar>
                     </div>
 
                     <input [(ngModel)]="return" type="text" placeholder="Return" (click)="returnCalendar();">
                     <div class="returnCalendar" *ngIf="returnFlag">
-                        <ejs-calendar [isMultiSelection]='multiselect' id=calendar [value]='value' [min]='minDate' [max]='maxDate' (click)="addReturnDate($event)">
+                        <ejs-calendar [isMultiSelection]='multiselect' id=calendar [value]='value' [min]='minDate'
+                            [max]='maxDate' (click)="addReturnDate($event)">
                         </ejs-calendar>
                     </div>
                 </div>
             </div>
             <div class="search">
-                <button (click)="browseData()" type="button" class="btn btn-primary">Search</button>
+                <button (click)="browseData()" type="button" class="btn btn-primary">Search
+                    {{allPlacesList.Places | json}}</button>
             </div>
         </div>
-        <div class="output">
-            <ul class="flight-list">
-                <li class="flight" *ngFor="let flight of flightData.Places">
-                    <div>{{ flight.Name }} test</div>
-                </li>
-            </ul>
+        <div class="output" *ngIf="outputFlag">
+            <!-- OUTPUT TABLE -->
+            <h2 style="text-align: center">Departure</h2>
+            <div class="row">
+                <table class="table  col-md-7">
+                    <thead>
+                        <tr>
+                            <th scope="col"></th>
+                            <th scope="col">Airport</th>
+                            <th scope="col">ShortCode</th>
+                            <th scope="col">CityName</th>
+                            <th scope="col">CountryName</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let flight of flightData.to.Places; let i = index;">
+                            <th scope="row">{{ i + 1 }}</th>
+                            <td>{{ flight.Name }}</td>
+                            <td>{{ flight.IataCode }}</td>
+                            <td>{{ flight.CityName }}</td>
+                            <td>{{ flight.CountryName }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table class="table f col-md-2">
+                    <thead>
+                        <tr>
+                            <th scope="col">AviaName</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let flight of flightData.Carriers">
+                            <td>{{ flight.Name }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table class="table  col-md-3">
+                    <thead>
+                        <tr>
+                            <th scope="col">MinPrice</th>
+                            <th scope="col">DepartTime</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let flight of flightData.Quotes">
+                            <td>{{ flight.MinPrice }}$</td>
+                            <td>{{ flight.OutboundLeg.DepartureDate.substring(0, 10) }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- END OUTPUT TABLE -->
+        </div>
+        <div class="output-return">
+
         </div>
     </div>
 </div>

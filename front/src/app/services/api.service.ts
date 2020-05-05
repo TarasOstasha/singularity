@@ -72,4 +72,9 @@ export class ApiService {
     return this.http.get( url + 'reqData' + query).toPromise();
   }
 
+  getListPlaces(country) {
+    const query = toQueryString(country);
+    return this.http.get( url + 'listPlaces' + query ).toPromise();
+  }
+
 }

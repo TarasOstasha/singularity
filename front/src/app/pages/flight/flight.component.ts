@@ -1,6 +1,7 @@
 import { Component, OnInit, HostListener, ElementRef, ViewChild, Input, OnChanges, AfterViewInit } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { ApiService } from '../../services/api.service';
+import { ReturnStatement } from '@angular/compiler';
 
 @Component({
   host: {
@@ -19,7 +20,7 @@ export class FlightComponent implements OnInit, OnChanges {
   public fullYear: number = new Date().getFullYear(); // get year
   public minDate: Date = new Date(this.fullYear, this.month); // set min value in calendar
   public maxDate: Date = new Date(this.fullYear, this.month + (12 - this.month)); // set max value in calendar
-  public value; 
+  public value;
   //public dateValue: Date = new Date(this.fullYear, this.month , 11); // probably clicked value !!!
 
 
@@ -30,6 +31,9 @@ export class FlightComponent implements OnInit, OnChanges {
   localList: any;
   depart: any;
   return: any;
+  placeIdTo: any;
+  placeIdReturn: any;
+
   filteredLocalization: any;
   filteredLocalizationTo: any;
   cityFlag: any = false; // show/hide name of cities witch have been chosen when clicked
@@ -53,12 +57,13 @@ export class FlightComponent implements OnInit, OnChanges {
   }
 
   async ngOnInit() {
-   
+
     const fromServer = await this.api.getLocalization();
     this.localList = fromServer;
     console.log(this.localList, 'this locallist')
   }
 
+  allPlacesList: any = {}
   filterLocalization() {
     try {
       if (this.whereFrom.length > 0) this.cityFlag = true;
@@ -77,7 +82,16 @@ export class FlightComponent implements OnInit, OnChanges {
           }
 
         })
+
         return flag;
+      })
+      this.filteredLocalization.forEach((item) => {
+        if (this.whereFrom.length > 2) {
+          this.api.getListPlaces({ country: item.Name }).then((fromServer: any) => {
+            this.allPlacesList[item.Name] = fromServer.data;
+            console.log(this.allPlacesList)
+          })
+        }
       })
     } catch (error) {
       console.log(error)
@@ -86,33 +100,48 @@ export class FlightComponent implements OnInit, OnChanges {
   }
 
   filterLocalizationTo() {
-    if (this.whereTo.length > 0) this.cityFlagTo = true;
-    else this.cityFlagTo = false;
-    this.filteredLocalizationTo = this.localList.localization.Countries.filter((item) => {
-      let flag = true;
-      this.whereTo.split('').forEach((letter, index) => {
+    try {
+      if (this.whereTo.length > 0) this.cityFlagTo = true;
+      else this.cityFlagTo = false;
+      this.filteredLocalizationTo = this.localList.localization.Countries.filter((item) => {
+        let flag = true;
+        this.whereTo.split('').forEach((letter, index) => {
 
-        if (letter == 'symbol enter') { // !!!
-          this.setValue(this.filteredLocalization[0])
-        }
-        if (this.whereTo.length <= item.Name.length) {
-          if (letter.toLowerCase() !== item.Name[index].toLowerCase()) flag = false;
-        } else {
-          flag = false;
-        }
+          if (letter == 'symbol enter') { // !!!
+            this.setValue(this.filteredLocalization[0])
+          }
+          if (this.whereTo.length <= item.Name.length) {
+            if (letter.toLowerCase() !== item.Name[index].toLowerCase()) flag = false;
+          } else {
+            flag = false;
+          }
 
+        })
+        return flag;
       })
-      return flag;
-    })
+      this.filteredLocalizationTo.forEach((item) => {
+        if (this.whereTo.length > 2) {
+          this.api.getListPlaces({ country: item.Name }).then((fromServer: any) => {
+            this.allPlacesList[item.Name] = fromServer.data;
+            console.log(this.allPlacesList)
+          })
+        }
+      })
+    } catch (error) {
+      console.log(error)
+    }
+
   }
 
   setValue(inpuVal: any) {
-    this.whereFrom = inpuVal.Name;
+    this.placeIdTo = inpuVal.PlaceId;
+    this.whereFrom = inpuVal.PlaceName;
     this.cityFlag = false;
   }
 
   setValueTo(inpuVal: any) {
-    this.whereTo = inpuVal.Name;
+    this.placeIdReturn = inpuVal.PlaceId;
+    this.whereTo = inpuVal.PlaceName;
     this.cityFlagTo = false;
   }
 
@@ -145,37 +174,58 @@ export class FlightComponent implements OnInit, OnChanges {
   addDepartDate(date) {
     console.log(date)
     const dateObj = new Date(date.target.title);
-    const t = dateObj.toISOString().substring(0, 10);;
+    const formatedData = dateObj.toISOString().substring(0, 10);
     //console.log(dateObj.toISOString());
-    this.value = t;
+    this.value = formatedData;
     this.depart = this.value;
   }
 
   addReturnDate(date) {
-    console.log(date.target.title)
-    this.value = date.target.title;
+    console.log(date)
+    const dateObj = new Date(date.target.title);
+    const formatedData = dateObj.toISOString().substring(0, 10);
+    this.value = formatedData;
     this.return = this.value;
   }
 
   flightData = {
-    Places : []
+    Places: [],
+    Dates: [],
+    Quotes: [],
+    Carriers: [],
+    Currencies: []
   }
+  outputFlag: boolean = false;
 
   async browseData() {
+    console.log(this.allPlacesList.item)
     const requestData = {
       depart: this.depart,
       return: this.return,
       whereTo: this.whereTo,
-      whereFrom: this.whereFrom
+      whereFrom: this.whereFrom,
+      placeIdTo: this.placeIdTo,
+      placeIdReturn: this.placeIdReturn
+
     }
-    const fromServer = await this.api.browseData(requestData);
-    console.log(fromServer);
+    const fromServer: any = await this.api.browseData(requestData);
+    console.log(fromServer.data);
     this.flightData = fromServer.data;
+    this.outputFlag = true;
   }
 
+  // ???
+  // async getlistPlaces(country) {
+  //   const fromServer: any = await this.api.getListPlaces({ country });
+  //   console.log(fromServer);
+  //   return fromServer.data
+  // }
 
 
-
+  // questions; 
+  // 289 line in index.js SFO-sky/LAX-sky ???
+  // browseData - jast one event, we need to get depart and return value
+  // list place
   //if(key == 13) console.log('enter')
 
   ///////////
