@@ -189,19 +189,28 @@ export class FlightComponent implements OnInit, OnChanges {
   }
 
   flightData = {
-    Places: [],
-    Dates: [],
-    Quotes: [],
-    Carriers: [],
-    Currencies: []
+    departingFlight: {
+      Places: [],
+      Dates: [],
+      Quotes: [],
+      Carriers: [],
+      Currencies: []
+    },
+    returningFlight: {
+      Places: [],
+      Dates: [],
+      Quotes: [],
+      Carriers: [],
+      Currencies: []
+    }
   }
   outputFlag: boolean = false;
 
   async browseData() {
     console.log(this.allPlacesList.item)
     const requestData = {
-      depart: this.depart,
-      return: this.return,
+      departDate: this.depart,
+      returnDate: this.return,
       whereTo: this.whereTo,
       whereFrom: this.whereFrom,
       placeIdTo: this.placeIdTo,

@@ -63,7 +63,7 @@
                         placeholder="Where to?">
                     <!-- RETURN GLIGHT -->
                     <ul [class]="(cityFlagTo) ? 'cityNameTo cityNameShow' : 'cityNameHide' ">
-                        <li *ngFor="let item of filteredLocalizationTo" >
+                        <li *ngFor="let item of filteredLocalizationTo">
                             <i class="fa fa-plane"></i>
                             {{ item.Name }} - {{ item.Code }}
                             <ul *ngIf=" whereFrom.length > 2 &&  allPlacesList[item.Name]">
@@ -95,62 +95,113 @@
                 <button (click)="browseData()" type="button" class="btn btn-primary">Search
                     {{allPlacesList.Places | json}}</button>
             </div>
-        </div>
-        <div class="output" *ngIf="outputFlag">
-            <!-- OUTPUT TABLE -->
-            <h2 style="text-align: center">Departure</h2>
-            <div class="row">
-                <table class="table  col-md-7">
-                    <thead>
-                        <tr>
-                            <th scope="col"></th>
-                            <th scope="col">Airport</th>
-                            <th scope="col">ShortCode</th>
-                            <th scope="col">CityName</th>
-                            <th scope="col">CountryName</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let flight of flightData.to.Places; let i = index;">
-                            <th scope="row">{{ i + 1 }}</th>
-                            <td>{{ flight.Name }}</td>
-                            <td>{{ flight.IataCode }}</td>
-                            <td>{{ flight.CityName }}</td>
-                            <td>{{ flight.CountryName }}</td>
-                        </tr>
-                    </tbody>
-                </table>
-                <table class="table f col-md-2">
-                    <thead>
-                        <tr>
-                            <th scope="col">AviaName</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let flight of flightData.Carriers">
-                            <td>{{ flight.Name }}</td>
-                        </tr>
-                    </tbody>
-                </table>
-                <table class="table  col-md-3">
-                    <thead>
-                        <tr>
-                            <th scope="col">MinPrice</th>
-                            <th scope="col">DepartTime</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let flight of flightData.Quotes">
-                            <td>{{ flight.MinPrice }}$</td>
-                            <td>{{ flight.OutboundLeg.DepartureDate.substring(0, 10) }}</td>
-                        </tr>
-                    </tbody>
-                </table>
+            <div class="output" *ngIf="outputFlag">
+                <!-- OUTPUT TABLE -->
+                <h2 style="text-align: center">Departure</h2>
+                <div class="row">
+                    <table class="table  col-md-7">
+                        <thead>
+                            <tr>
+                                <th scope="col"></th>
+                                <th scope="col">Airport</th>
+                                <th scope="col">ShortCode</th>
+                                <th scope="col">CityName</th>
+                                <th scope="col">CountryName</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let flight of flightData.departingFlight.Places; let i = index;">
+                                <th scope="row">{{ i + 1 }}</th>
+                                <td>{{ flight.Name }}</td>
+                                <td>{{ flight.IataCode }}</td>
+                                <td>{{ flight.CityName }}</td>
+                                <td>{{ flight.CountryName }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="table f col-md-2">
+                        <thead>
+                            <tr>
+                                <th scope="col">AviaName</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let flight of flightData.Carriers">
+                                <td>{{ flight.Name }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="table  col-md-3">
+                        <thead>
+                            <tr>
+                                <th scope="col">MinPrice</th>
+                                <th scope="col">DepartTime</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let flight of flightData.Quotes">
+                                <td>{{ flight.MinPrice }}$</td>
+                                <td>{{ flight.OutboundLeg.DepartureDate.substring(0, 10) }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <button>OK</button>
+                </div>
+                <!-- END OUTPUT TABLE -->
             </div>
-            <!-- END OUTPUT TABLE -->
+            <div class="output-return" *ngIf="outputFlag">
+                <h2 style="text-align: center">Returning</h2>
+                <div class="row">
+                    <table class="table  col-md-7">
+                        <thead>
+                            <tr>
+                                <th scope="col"></th>
+                                <th scope="col">Airport</th>
+                                <th scope="col">ShortCode</th>
+                                <th scope="col">CityName</th>
+                                <th scope="col">CountryName</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let flight of flightData.returningFlight.Places; let i = index;">
+                                <th scope="row">{{ i + 1 }}</th>
+                                <td>{{ flight.Name }}</td>
+                                <td>{{ flight.IataCode }}</td>
+                                <td>{{ flight.CityName }}</td>
+                                <td>{{ flight.CountryName }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="table f col-md-2">
+                        <thead>
+                            <tr>
+                                <th scope="col">AviaName</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let flight of flightData.Carriers">
+                                <td>{{ flight.Name }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="table  col-md-3">
+                        <thead>
+                            <tr>
+                                <th scope="col">MinPrice</th>
+                                <th scope="col">DepartTime</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let flight of flightData.Quotes">
+                                <td>{{ flight.MinPrice }}$</td>
+                                <td>{{ flight.OutboundLeg.DepartureDate.substring(0, 10) }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <button>OK</button>
+                </div>
+            </div>
         </div>
-        <div class="output-return">
 
-        </div>
     </div>
 </div>

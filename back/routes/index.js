@@ -260,8 +260,8 @@ router.get('/reqData', cors(), (req, res) => {
   try {
     const data = req.query;
     console.log(data, '!!!!!!!!!!!!!!!!!!!!')
-    var request = unirest("GET", `https://skyscanner-skyscanner-flight-search-v1.p.rapidapi.com/apiservices/browsedates/v1.0/US/USD/en-US/${data.placeIdTo}/${data.placeIdReturn}/${data.depart}`);
-    var request2 = unirest("GET", "https://skyscanner-skyscanner-flight-search-v1.p.rapidapi.com/apiservices/browsedates/v1.0/US/USD/en-US/SFO-sky/LAX-sky/" + data.return);
+    var request = unirest("GET", `https://skyscanner-skyscanner-flight-search-v1.p.rapidapi.com/apiservices/browsedates/v1.0/US/USD/en-US/${data.placeIdTo}/${data.placeIdReturn}/${data.departDate}`);
+    var request2 = unirest("GET", "https://skyscanner-skyscanner-flight-search-v1.p.rapidapi.com/apiservices/browsedates/v1.0/US/USD/en-US/SFO-sky/LAX-sky/" + data.returnDate);
 
     request.query({
       "inboundpartialdate": "2020-09-01" // date
@@ -277,7 +277,7 @@ router.get('/reqData', cors(), (req, res) => {
       reqCounter++;
       //console.log(response.error)
       if (response.error) throw new Error(response.error);
-      finish.data.to = response.body
+      finish.data.departingFlight = response.body
       if (reqCounter == 2) res.json(finish);
       //console.log(response.body);
     });
@@ -285,7 +285,7 @@ router.get('/reqData', cors(), (req, res) => {
     request2.end(function (response) {
       reqCounter++;
       if (response.error) throw new Error(response.error);
-      finish.data.from = response.body
+      finish.data.returningFlight = response.body
       if (reqCounter == 2) res.json(finish);
     });
 
